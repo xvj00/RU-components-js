@@ -1438,7 +1438,7 @@ export interface VoiceAssistant {
 }
 
 // @beta (undocumented)
-export function VoiceAssistantControlBar({ controls, saveUserChoices, onDeviceError, ...props }: VoiceAssistantControlBarProps): React_2.JSX.Element;
+export function VoiceAssistantControlBar({ controls, saveUserChoices, theme, variant, density, onDeviceError, ...props }: VoiceAssistantControlBarProps): React_2.JSX.Element;
 
 // @beta (undocumented)
 export type VoiceAssistantControlBarControls = {
@@ -1447,16 +1447,28 @@ export type VoiceAssistantControlBarControls = {
 };
 
 // @beta (undocumented)
+export type VoiceAssistantDensity = 'comfortable' | 'compact';
+
+// @beta (undocumented)
 export interface VoiceAssistantControlBarProps extends React_2.HTMLAttributes<HTMLDivElement> {
     // (undocumented)
     controls?: VoiceAssistantControlBarControls;
+    density?: VoiceAssistantDensity;
     // (undocumented)
     onDeviceError?: (error: {
         source: Track.Source;
         error: Error;
     }) => void;
     saveUserChoices?: boolean;
+    theme?: VoiceAssistantTheme;
+    variant?: VoiceAssistantVariant;
 }
+
+// @beta (undocumented)
+export type VoiceAssistantTheme = 'dark' | 'light' | 'calm' | 'focus' | 'expressive' | 'contrast';
+
+// @beta (undocumented)
+export type VoiceAssistantVariant = 'glass' | 'solid';
 
 export { WidgetState }
 

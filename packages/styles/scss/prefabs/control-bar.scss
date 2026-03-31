@@ -21,4 +21,38 @@
       filter: none;
     }
   }
+
+  &[data-lk-agent-variant='solid'] {
+    --bg: var(--bg2);
+    border-radius: calc(var(--border-radius) + 2px);
+  }
+
+  &[data-lk-agent-density='compact'] {
+    gap: 0.35rem;
+    padding: 0.5rem;
+  }
+
+  &[data-lk-agent-theme='calm'] {
+    --accent-bg: #60a5fa;
+  }
+
+  &[data-lk-agent-theme='dark'] {
+    --accent-bg: #7aa2f7;
+  }
+
+  &[data-lk-agent-theme='light'] {
+    --accent-bg: #4f6df5;
+  }
+
+  &[data-lk-agent-theme='focus'] {
+    --accent-bg: #a78bfa;
+  }
+
+  &[data-lk-agent-theme='expressive'] {
+    --accent-bg: #f472b6;
+  }
+
+  &[data-lk-agent-theme='contrast'] {
+    --accent-bg: #22d3ee;
+  }
 }

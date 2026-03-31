@@ -6,6 +6,9 @@ export { MediaDeviceMenu, type MediaDeviceMenuProps } from './MediaDeviceMenu';
 export { AudioConference, type AudioConferenceProps } from './AudioConference';
 export {
   VoiceAssistantControlBar,
+  type VoiceAssistantDensity,
   type VoiceAssistantControlBarProps,
   type VoiceAssistantControlBarControls,
+  type VoiceAssistantTheme,
+  type VoiceAssistantVariant,
 } from './VoiceAssistantControlBar';

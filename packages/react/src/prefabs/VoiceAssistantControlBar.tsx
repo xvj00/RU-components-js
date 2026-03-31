@@ -19,6 +19,13 @@ export type VoiceAssistantControlBarControls = {
 };
 
 /** @beta */
+export type VoiceAssistantTheme = 'dark' | 'light' | 'calm' | 'focus' | 'expressive' | 'contrast';
+/** @beta */
+export type VoiceAssistantVariant = 'glass' | 'solid';
+/** @beta */
+export type VoiceAssistantDensity = 'comfortable' | 'compact';
+
+/** @beta */
 export interface VoiceAssistantControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
   controls?: VoiceAssistantControlBarControls;
@@ -28,6 +35,21 @@ export interface VoiceAssistantControlBarProps extends React.HTMLAttributes<HTML
    * @defaultValue true
    */
   saveUserChoices?: boolean;
+  /**
+   * Visual theme marker exposed via class/data attributes for custom styling.
+   * @defaultValue 'dark'
+   */
+  theme?: VoiceAssistantTheme;
+  /**
+   * Visual variant marker exposed via class/data attributes for custom styling.
+   * @defaultValue 'glass'
+   */
+  variant?: VoiceAssistantVariant;
+  /**
+   * Layout density marker exposed via class/data attributes for custom styling.
+   * @defaultValue 'comfortable'
+   */
+  density?: VoiceAssistantDensity;
 }
 
 /**
@@ -42,6 +64,9 @@ export interface VoiceAssistantControlBarProps extends React.HTMLAttributes<HTML
 export function VoiceAssistantControlBar({
   controls,
   saveUserChoices = true,
+  theme = 'dark',
+  variant = 'glass',
+  density = 'comfortable',
   onDeviceError,
   ...props
 }: VoiceAssistantControlBarProps) {
@@ -64,7 +89,15 @@ export function VoiceAssistantControlBar({
     visibleControls.microphone ??= localPermissions.canPublish;
   }
 
-  const htmlProps = mergeProps({ className: 'lk-agent-control-bar' }, props);
+  const htmlProps = mergeProps(
+    {
+      className: `lk-agent-control-bar lk-agent-control-bar-theme-${theme} lk-agent-control-bar-variant-${variant} lk-agent-control-bar-density-${density}`,
+      'data-lk-agent-theme': theme,
+      'data-lk-agent-variant': variant,
+      'data-lk-agent-density': density,
+    },
+    props,
+  );
 
   const { saveAudioInputEnabled, saveAudioInputDeviceId } = usePersistentUserChoices({
     preventSave: !saveUserChoices,

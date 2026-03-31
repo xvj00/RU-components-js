@@ -15,13 +15,25 @@ import { useMemo, useState, useEffect } from 'react';
 import { MediaDeviceFailure, TokenSource } from 'livekit-client';
 import styles from '../styles/VoiceAssistant.module.scss';
 import { generateRandomUserId } from '../lib/helper';
+import {
+  getStoredVoiceDensity,
+  getStoredVoiceTheme,
+  normalizeVoiceState,
+  resolveVoiceThemeClass,
+  setStoredVoiceDensity,
+  setStoredVoiceTheme,
+  voiceStates,
+  voiceThemeLabel,
+  voiceThemes,
+  type VoiceTheme,
+} from '../lib/voiceUi';
 
 function SimpleAgent() {
   const agent = useAgent();
 
   useEffect(() => {
     if (agent.state === 'failed') {
-      alert(`Agent error: ${agent.failureReasons.join(', ')}`);
+      alert(`Ошибка ассистента: ${agent.failureReasons.join(', ')}`);
     }
   }, [agent.state, agent.failureReasons]);
 
@@ -37,6 +49,37 @@ function SimpleAgent() {
 
 const tokenSource = TokenSource.endpoint(process.env.NEXT_PUBLIC_LK_TOKEN_ENDPOINT!);
 
+const voiceStateLabel: Record<(typeof voiceStates)[number], string> = {
+  connecting: 'Подключение',
+  listening: 'Слушает',
+  thinking: 'Думает',
+  speaking: 'Говорит',
+  disconnected: 'Отключен',
+};
+
+function AgentStatePanel({ started }: { started: boolean }) {
+  const agent = useAgent();
+  const normalizedState = normalizeVoiceState(started ? agent.state : 'disconnected');
+
+  return (
+    <>
+      <p className={styles.stateLabel} role="status" aria-live="polite">
+        Статус: <strong>{voiceStateLabel[normalizedState]}</strong>
+      </p>
+      <div className={styles.statusGrid}>
+        {voiceStates.map((state) => (
+          <div
+            key={state}
+            className={`${styles.statusChip} ${normalizedState === state ? styles.statusChipActive : ''}`}
+          >
+            {voiceStateLabel[state]}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 const AgentExample: NextPage = () => {
   const params = useMemo(
     () => (typeof window !== 'undefined' ? new URLSearchParams(location.search) : null),
@@ -47,6 +90,8 @@ const AgentExample: NextPage = () => {
     [params],
   );
   const [userIdentity] = useState(() => params?.get('user') ?? generateRandomUserId());
+  const [theme, setTheme] = useState<VoiceTheme>('dark');
+  const [density, setDensity] = useState<'comfortable' | 'compact'>('comfortable');
 
   const session = useSession(tokenSource, {
     roomName,
@@ -54,14 +99,27 @@ const AgentExample: NextPage = () => {
   });
 
   const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    setTheme(getStoredVoiceTheme('dark'));
+    setDensity(getStoredVoiceDensity('comfortable'));
+  }, []);
+
+  useEffect(() => {
+    setStoredVoiceTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    setStoredVoiceDensity(density);
+  }, [density]);
   useEffect(() => {
     if (started) {
       session.start().catch((err) => {
-        console.error('Failed to start session:', err);
+        console.error('Не удалось запустить сессию:', err);
       });
     } else {
       session.end().catch((err) => {
-        console.error('Failed to end session:', err);
+        console.error('Не удалось завершить сессию:', err);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,24 +135,61 @@ const AgentExample: NextPage = () => {
     const failure = MediaDeviceFailure.getFailure(error);
     console.error(failure);
     alert(
-      'Error acquiring camera or microphone permissions. Please make sure you grant the necessary permissions in your browser and reload the tab',
+      'Не удалось получить доступ к камере или микрофону. Разрешите доступ в браузере и перезагрузите вкладку.',
     );
   }, []);
 
   return (
-    <main data-lk-theme="default" className={styles.main}>
+    <main
+      data-lk-theme="default"
+      className={`${styles.main} ${styles.voiceShell} ${styles[resolveVoiceThemeClass(theme)]}`}
+    >
       <SessionProvider session={session}>
         <div className={styles.room}>
-          <div className={styles.inner}>
+          <section className={`${styles.surface} ${styles.header}`}>
+            <div>
+              <h1 className={styles.title}>Голосовой ассистент</h1>
+              <p className={styles.description}>
+                Полностью персонализированный интерфейс голосового помощника с адаптивной темой.
+              </p>
+            </div>
+            <div className={styles.themePicker}>
+              {voiceThemes.map((themeName) => (
+                <button
+                  key={themeName}
+                  type="button"
+                  className={styles.themeButton}
+                  aria-pressed={themeName === theme}
+                  onClick={() => setTheme(themeName)}
+                >
+                  {voiceThemeLabel[themeName]}
+                </button>
+              ))}
+              <button
+                type="button"
+                className={styles.themeButton}
+                aria-pressed={density === 'compact'}
+                onClick={() => setDensity((current) => (current === 'compact' ? 'comfortable' : 'compact'))}
+              >
+                {density === 'compact' ? 'Обычная плотность' : 'Компактная плотность'}
+              </button>
+            </div>
+          </section>
+          <section className={styles.surface}>
+            <AgentStatePanel started={started} />
+          </section>
+          <section className={`${styles.surface} ${styles.inner}`}>
             {started ? (
               <SimpleAgent />
             ) : (
-              <button className="lk-button" onClick={() => setStarted(true)}>
-                Connect
+              <button type="button" className={styles.primaryButton} onClick={() => setStarted(true)}>
+                Начать диалог
               </button>
             )}
+          </section>
+          <div className={`${styles.surface} ${styles.controlBar} ${density === 'compact' ? styles.controlBarCompact : ''}`}>
+            <VoiceAssistantControlBar density={density} theme={theme} variant="solid" />
           </div>
-          <VoiceAssistantControlBar />
           <RoomAudioRenderer />
         </div>
       </SessionProvider>
