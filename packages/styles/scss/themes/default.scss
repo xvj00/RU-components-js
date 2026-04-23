@@ -1,31 +1,31 @@
 @use 'sass:color';
 
-$bg: #111;
-$fg: #fff;
-$danger: #f91f31;
-$success: #1ff968;
-$warning: #f9b11f;
-$accent: #1f8cf9;
+$bg: #f8fafc;
+$fg: #0f172a;
+$danger: #ef4444;
+$success: #10b981;
+$warning: #f59e0b;
+$accent: #2563eb;
 
 [data-theme='default'] {
-  color-scheme: dark;
+  color-scheme: light;
 
   --bg: #{$bg};
-  --bg2: #{color.adjust($bg, $lightness: 5%)};
-  --bg3: #{color.adjust($bg, $lightness: 10%)};
-  --bg4: #{color.adjust($bg, $lightness: 15%)};
-  --bg5: #{color.adjust($bg, $lightness: 20%)};
+  --bg2: #{color.adjust($bg, $lightness: -2%)};
+  --bg3: #{color.adjust($bg, $lightness: -5%)};
+  --bg4: #{color.adjust($bg, $lightness: -8%)};
+  --bg5: #{color.adjust($bg, $lightness: -12%)};
 
-  --fg: #fff;
-  --fg2: #{color.adjust($fg, $lightness: -4%)};
-  --fg3: #{color.adjust($fg, $lightness: -8%)};
-  --fg4: #{color.adjust($fg, $lightness: -12%)};
-  --fg5: #{color.adjust($fg, $lightness: -16%)};
+  --fg: #{$fg};
+  --fg2: #{color.adjust($fg, $lightness: 12%)};
+  --fg3: #{color.adjust($fg, $lightness: 22%)};
+  --fg4: #{color.adjust($fg, $lightness: 30%)};
+  --fg5: #{color.adjust($fg, $lightness: 38%)};
 
-  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(148, 163, 184, 0.3);
 
   --accent-fg: #fff;
-  --accent-bg: #1f8cf9;
+  --accent-bg: #{$accent};
   --accent2: #{color.adjust($accent, $lightness: 4%)};
   --accent3: #{color.adjust($accent, $lightness: 8%)};
   --accent4: #{color.adjust($accent, $lightness: 12%)};
@@ -43,24 +43,24 @@ $accent: #1f8cf9;
   --success4: #{color.adjust($success, $lightness: 12%)};
 
   --control-fg: var(--fg);
-  --control-bg: var(--bg2);
-  --control-hover-bg: var(--bg3);
-  --control-active-bg: var(--bg4);
-  --control-active-hover-bg: var(--bg5);
+  --control-bg: #ffffff;
+  --control-hover-bg: #f1f5f9;
+  --control-active-bg: #e2e8f0;
+  --control-active-hover-bg: #cbd5e1;
 
-  --connection-excellent: #06db4d;
-  --connection-good: #f9b11f;
-  --connection-poor: #f91f31;
+  --connection-excellent: #10b981;
+  --connection-good: #f59e0b;
+  --connection-poor: #ef4444;
 
-  --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+  --font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji';
   --font-size: 16px;
   --line-height: 1.5;
-  --border-radius: 0.5rem;
-  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
-  --drop-shadow: rgba(255, 255, 255, 0.2) 0px 0px 24px;
+  --border-radius: 0.875rem;
+  --box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+  --drop-shadow: rgba(37, 99, 235, 0.18) 0px 0px 20px;
 
-  --grid-gap: 0.5rem;
-  --control-bar-height: 69px;
-  --chat-header-height: 69px;
+  --grid-gap: 0.75rem;
+  --control-bar-height: 76px;
+  --chat-header-height: 72px;
 }

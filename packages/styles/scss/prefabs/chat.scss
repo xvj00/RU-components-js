@@ -1,8 +1,8 @@
 .chat {
   display: grid;
   grid-template-rows: var(--chat-header-height) 1fr var(--control-bar-height);
-  width: clamp(200px, 55ch, 60ch);
-  background-color: var(--bg2);
+  width: clamp(260px, 34vw, 440px);
+  background-color: #ffffff;
   border-left: 1px solid var(--border-color);
   align-items: end;
 }
@@ -20,7 +20,7 @@
     transform: translateX(-50%);
     background-color: transparent;
     &:hover {
-      background-color: var(--lk-control-active-hover-bg);
+      background-color: var(--control-active-hover-bg);
     }
   }
 }
@@ -68,7 +68,7 @@
 
   .message-body {
     display: inline-block;
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 0.25rem 0.75rem;
     word-break: break-word;
     width: fit-content;
@@ -77,13 +77,13 @@
 
   &[data-message-origin='local'] {
     .message-body {
-      background-color: var(--bg5);
+      background-color: #e2e8f0;
     }
   }
 
   &[data-message-origin='remote'] {
     .message-body {
-      background-color: var(--accent4);
+      background-color: color-mix(in srgb, var(--accent-bg) 12%, #ffffff);
     }
   }
 

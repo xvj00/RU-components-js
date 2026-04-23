@@ -4,11 +4,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.625rem 1rem;
+  min-height: 44px;
+  padding: 0.625rem 0.9rem;
   color: var(--control-fg);
   background-image: none;
   background-color: var(--control-bg);
-  border: 0;
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   cursor: pointer;
   white-space: nowrap;
@@ -18,6 +19,7 @@
 
   &:not(:disabled):hover {
     background-color: var(--control-hover-bg);
+    border-color: color-mix(in srgb, var(--accent-bg) 34%, #ffffff);
   }
 
   & > svg {

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: calc(100% - var(--control-bar-height));
+  height: calc(100% - var(--control-bar-height) - 0.5rem);
 }
 
 .grid-layout-wrapper {
@@ -21,6 +21,9 @@
   display: flex;
   align-items: stretch;
   height: 100%;
+  padding: 0.75rem;
+  gap: var(--grid-gap);
+  background: linear-gradient(180deg, var(--bg) 0%, #eef2ff 100%);
 }
 
 .video-conference-inner {
@@ -28,6 +31,11 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: calc(var(--border-radius) + 0.25rem);
+  background: #ffffff;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
 }
 
 .settings-menu-modal {
@@ -46,7 +54,7 @@
   padding: 0.75rem 1.25rem;
   background-color: var(--lk-bg);
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: calc(var(--border-radius) + 0.125rem);
   box-shadow: var(--box-shadow);
   min-width: 50vw;
   min-height: 50vh;
