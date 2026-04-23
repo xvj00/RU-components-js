@@ -25,16 +25,16 @@ a {
 }
 
 :root {
-  --ui-bg: #0f172a;
-  --ui-bg-soft: #111b31;
-  --ui-surface: #17233d;
-  --ui-surface-soft: #1b2a48;
-  --ui-border: rgba(148, 163, 184, 0.22);
-  --ui-text: #e6edf6;
-  --ui-muted: #9aa8bc;
-  --ui-accent: #7aa2f7;
-  --ui-danger: #ef6a84;
-  --ui-radius: 12px;
+  --ui-bg: #f8fafc;
+  --ui-bg-soft: #f1f5f9;
+  --ui-surface: #ffffff;
+  --ui-surface-soft: #f8fafc;
+  --ui-border: rgba(148, 163, 184, 0.32);
+  --ui-text: #0f172a;
+  --ui-muted: #64748b;
+  --ui-accent: #2563eb;
+  --ui-danger: #ef4444;
+  --ui-radius: 14px;
   --ui-space-1: 6px;
   --ui-space-2: 10px;
   --ui-space-3: 14px;
@@ -47,11 +47,11 @@ a {
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 body {
   color: var(--ui-text);
-  background: linear-gradient(180deg, var(--ui-bg) 0%, #0b1426 100%);
+  background: linear-gradient(180deg, var(--ui-bg) 0%, #eef2ff 100%);
   font-family: var(--ui-font-ui);
   letter-spacing: 0.005em;
 }
@@ -91,8 +91,8 @@ body {
 [data-lk-theme='default'] .lk-participant-audio-tile {
   border-radius: var(--ui-radius);
   border: 1px solid var(--ui-border);
-  background: color-mix(in oklab, var(--ui-surface) 90%, #fff);
-  box-shadow: 0 6px 16px rgba(2, 6, 23, 0.18);
+  background: color-mix(in oklab, var(--ui-surface) 96%, #fff);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
 }
 
 [data-lk-theme='default'] .lk-participant-name,
@@ -116,7 +116,7 @@ body {
   border: 1px solid var(--ui-border);
   background: var(--ui-surface);
   color: var(--ui-text);
-  box-shadow: 0 3px 10px rgba(2, 6, 23, 0.14);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
   min-height: 44px;
   font-size: 0.9rem;
   font-weight: 500;
@@ -134,7 +134,7 @@ body {
 [data-lk-theme='default'] .lk-chat-form-button:focus-visible,
 [data-lk-theme='default'] .lk-chat-form-input:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(122, 162, 247, 0.45);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.36);
 }
 
 [data-lk-theme='default'] .lk-chat,

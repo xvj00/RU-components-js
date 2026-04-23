@@ -3,8 +3,7 @@
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80');
-  background-size: cover;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
 }
 
 .grid {
@@ -26,36 +25,47 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-width: 50rem;
+  max-width: 56rem;
   height: 80%;
-  padding: 1rem;
+  padding: 1rem 1rem 0.75rem;
   left: 50%;
   transform: translateX(-50%);
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
-  background-color: var(--lk-bg3);
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
   transition: bottom 1s;
 
   display: grid;
   grid-template-rows: min-content 1fr min-content;
+
+  h1 {
+    margin: 0 0 0.8rem;
+    color: #0f172a;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+  }
 }
 
 section.participant-tile {
-  --size: 6rem;
+  --size: 6.4rem;
   position: relative;
   width: var(--size);
   height: var(--size);
   min-width: unset;
 
   .avatar-container {
-    border: 3px transparent solid;
+    border: 2px transparent solid;
     transition: border-color 0.1s linear;
     border-radius: 9999999px;
     .avatar {
-      background-color: beige;
+      background-color: #e2e8f0;
       align-items: center;
       overflow: hidden;
       border-radius: 9999999px;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.1);
 
       display: grid;
       aspect-ratio: 1 / 1;
@@ -68,13 +78,13 @@ section.participant-tile {
   }
   .mic-container {
     position: absolute;
-    background-color: var(--lk-danger);
+    background-color: #ef4444;
 
     bottom: 7%;
     right: 7%;
     border-radius: 999999px;
     transition: opacity 0.2s ease-in-out;
-    border: 2px var(--lk-bg3) solid;
+    border: 2px #ffffff solid;
     padding: 0.2rem;
     div {
       aspect-ratio: 1/1;

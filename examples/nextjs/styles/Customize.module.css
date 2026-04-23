@@ -1,16 +1,23 @@
 .my-participant-name {
-  color: red;
-  text-transform: uppercase;
+  color: #0f172a;
+  text-transform: none;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .my-participant-name:hover {
-  color: darkred;
+  color: #1d4ed8;
 }
 
 .participant-indicators {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
 }

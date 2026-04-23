@@ -153,15 +153,15 @@ export function UserDefinedConnectionQualityIndicator(props: HTMLAttributes<HTML
   function qualityToText(quality: ConnectionQuality): string {
     switch (quality) {
       case ConnectionQuality.Poor:
-        return 'Poor';
+        return 'Низкое';
       case ConnectionQuality.Good:
-        return 'Good';
+        return 'Хорошее';
       case ConnectionQuality.Excellent:
-        return 'Excellent';
+        return 'Отличное';
       case ConnectionQuality.Lost:
-        return 'Reconnecting';
+        return 'Переподключение';
       default:
-        return 'No idea';
+        return 'Нет данных';
     }
   }
 

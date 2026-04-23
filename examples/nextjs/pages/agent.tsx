@@ -16,16 +16,8 @@ import { MediaDeviceFailure, TokenSource } from 'livekit-client';
 import styles from '../styles/VoiceAssistant.module.scss';
 import { generateRandomUserId } from '../lib/helper';
 import {
-  getStoredVoiceDensity,
-  getStoredVoiceTheme,
   normalizeVoiceState,
-  resolveVoiceThemeClass,
-  setStoredVoiceDensity,
-  setStoredVoiceTheme,
   voiceStates,
-  voiceThemeLabel,
-  voiceThemes,
-  type VoiceTheme,
 } from '../lib/voiceUi';
 
 function SimpleAgent() {
@@ -90,8 +82,6 @@ const AgentExample: NextPage = () => {
     [params],
   );
   const [userIdentity] = useState(() => params?.get('user') ?? generateRandomUserId());
-  const [theme, setTheme] = useState<VoiceTheme>('dark');
-  const [density, setDensity] = useState<'comfortable' | 'compact'>('comfortable');
 
   const session = useSession(tokenSource, {
     roomName,
@@ -99,19 +89,6 @@ const AgentExample: NextPage = () => {
   });
 
   const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    setTheme(getStoredVoiceTheme('dark'));
-    setDensity(getStoredVoiceDensity('comfortable'));
-  }, []);
-
-  useEffect(() => {
-    setStoredVoiceTheme(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    setStoredVoiceDensity(density);
-  }, [density]);
   useEffect(() => {
     if (started) {
       session.start().catch((err) => {
@@ -140,39 +117,15 @@ const AgentExample: NextPage = () => {
   }, []);
 
   return (
-    <main
-      data-lk-theme="default"
-      className={`${styles.main} ${styles.voiceShell} ${styles[resolveVoiceThemeClass(theme)]}`}
-    >
+    <main data-lk-theme="default" className={`${styles.main} ${styles.voiceShell} ${styles.themeLight}`}>
       <SessionProvider session={session}>
         <div className={styles.room}>
           <section className={`${styles.surface} ${styles.header}`}>
             <div>
               <h1 className={styles.title}>Голосовой ассистент</h1>
               <p className={styles.description}>
-                Полностью персонализированный интерфейс голосового помощника с адаптивной темой.
+                Минималистичный интерфейс звонка без лишних переключателей.
               </p>
-            </div>
-            <div className={styles.themePicker}>
-              {voiceThemes.map((themeName) => (
-                <button
-                  key={themeName}
-                  type="button"
-                  className={styles.themeButton}
-                  aria-pressed={themeName === theme}
-                  onClick={() => setTheme(themeName)}
-                >
-                  {voiceThemeLabel[themeName]}
-                </button>
-              ))}
-              <button
-                type="button"
-                className={styles.themeButton}
-                aria-pressed={density === 'compact'}
-                onClick={() => setDensity((current) => (current === 'compact' ? 'comfortable' : 'compact'))}
-              >
-                {density === 'compact' ? 'Обычная плотность' : 'Компактная плотность'}
-              </button>
             </div>
           </section>
           <section className={styles.surface}>
@@ -187,8 +140,8 @@ const AgentExample: NextPage = () => {
               </button>
             )}
           </section>
-          <div className={`${styles.surface} ${styles.controlBar} ${density === 'compact' ? styles.controlBarCompact : ''}`}>
-            <VoiceAssistantControlBar density={density} theme={theme} variant="solid" />
+          <div className={`${styles.surface} ${styles.controlBar}`}>
+            <VoiceAssistantControlBar density="comfortable" theme="light" variant="solid" />
           </div>
           <RoomAudioRenderer />
         </div>

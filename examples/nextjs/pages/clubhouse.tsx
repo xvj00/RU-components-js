@@ -82,7 +82,7 @@ const Clubhouse: NextPage = () => {
               setTryToConnect(true);
             }}
           >
-            Enter Room
+            Войти в комнату
           </button>
         </div>
 

@@ -13,14 +13,6 @@ import { generateRandomUserId } from '../lib/helper';
 import { useMemo, useEffect, useState } from 'react';
 import { TokenSource, MediaDeviceFailure } from 'livekit-client';
 import styles from '../styles/VoiceAssistant.module.scss';
-import {
-  getStoredVoiceTheme,
-  resolveVoiceThemeClass,
-  setStoredVoiceTheme,
-  voiceThemeLabel,
-  type VoiceTheme,
-  voiceThemes,
-} from '../lib/voiceUi';
 
 const tokenSource = TokenSource.endpoint(process.env.NEXT_PUBLIC_LK_TOKEN_ENDPOINT!);
 
@@ -33,7 +25,6 @@ const MinimalExample: NextPage = () => {
   setLogLevel('debug', { liveKitClientLogLevel: 'info' });
 
   const [userIdentity] = useState(() => params?.get('user') ?? generateRandomUserId());
-  const [theme, setTheme] = useState<VoiceTheme>('dark');
 
   const session = useSession(tokenSource, {
     roomName,
@@ -67,37 +58,13 @@ const MinimalExample: NextPage = () => {
     );
   }, []);
 
-  useEffect(() => {
-    setTheme(getStoredVoiceTheme('dark'));
-  }, []);
-
-  useEffect(() => {
-    setStoredVoiceTheme(theme);
-  }, [theme]);
-
   return (
-    <main
-      data-lk-theme="default"
-      className={`${styles.main} ${styles.voiceShell} ${styles[resolveVoiceThemeClass(theme)]}`}
-    >
+    <main data-lk-theme="default" className={`${styles.main} ${styles.voiceShell} ${styles.themeLight}`}>
       <div className={styles.room}>
         <section className={`${styles.surface} ${styles.header}`}>
           <div>
             <h1 className={styles.title}>Минимальная конференция</h1>
-            <p className={styles.description}>Персональный стиль синхронизирован с voice-темами</p>
-          </div>
-          <div className={styles.themePicker}>
-            {voiceThemes.map((themeName) => (
-              <button
-                key={themeName}
-                type="button"
-                className={styles.themeButton}
-                aria-pressed={themeName === theme}
-                onClick={() => setTheme(themeName)}
-              >
-                {voiceThemeLabel[themeName]}
-              </button>
-            ))}
+            <p className={styles.description}>Чистый интерфейс видеозвонка без лишних переключателей.</p>
           </div>
         </section>
         <section className={styles.surface}>
